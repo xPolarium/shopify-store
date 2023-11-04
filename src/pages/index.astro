@@ -1,0 +1,22 @@
+---
+import '@/styles/globals.css'
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Button } from "@/components/ui/button"
+
+import { getProducts } from "../utils/shopify";
+
+const headers = Astro.request.headers;
+const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
+
+// const products = await getProducts({buyerIp: ip, limit: 17});
+
+// if (!products) {
+// 	console.warn("No products found.")
+// }
+
+// console.log(products.data.products.edges)
+---
+
+<BaseLayout title="Shopify Store">
+	<div>Hello</div>
+</BaseLayout>
