@@ -1,7 +1,9 @@
 ---
-import '@/styles/globals.css'
+import '@/styles/globals.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
+
+import HeroSection from "@/components/HeroSection";
 
 import { getProducts } from "../utils/shopify";
 
@@ -18,5 +20,5 @@ const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
 ---
 
 <BaseLayout title="Shopify Store">
-	
+	<HeroSection /><HeroSection />
 </BaseLayout>

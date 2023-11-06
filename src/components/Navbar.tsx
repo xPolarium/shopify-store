@@ -6,7 +6,7 @@ interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
 	return (
-		<nav className="sticky h-14 inset-x-0 top-0 z-30 w-full border-b">
+		<nav className="sticky h-14 inset-x-0 top-0 z-30 w-full bg-white border-b">
 			<MaxWidthWrapper>
 				<div className="font-semibold flex h-14 items-center justify-between border-b">
 					<div className="items-center space-x-4 flex">
