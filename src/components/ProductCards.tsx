@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { Image } from "astro:assets";
 import { ProductResult, type ImageResult } from "@/utils/schemas";
 
 import { Button } from "./ui/button";

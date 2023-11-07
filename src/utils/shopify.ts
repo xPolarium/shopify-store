@@ -18,7 +18,6 @@ export const getProducts = async (options: {
 }) => {
 	const { limit = 10, buyerIp } = options;
 
-	// Get the Storefront API url
 	const response = await fetch(client.getStorefrontApiUrl(), {
 		body: JSON.stringify({
 			query: ProductQuery,
