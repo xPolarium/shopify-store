@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import { ProductResult, type ImageResult } from "@/utils/schemas";
 
 import { Button } from "./ui/button";
+import { PlusSquare } from "lucide-react";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 
 const ProductsResult = z.array(ProductResult);
@@ -31,7 +32,7 @@ const ProductCards: React.FC<ProductCardsProps> = ({ products }) => {
 			<MaxWidthWrapper className="min-h-screen">
 				<div className="grid grid-cols-4 gap-6">
 					{products.map((product) => (
-						<div className="flex flex-col items-center rounded-md border-2 p-4 border-neutral-200">
+						<div className="flex flex-col justify-between items-center rounded-md border-2 p-4 border-neutral-200">
 							<h1 className="text-xl font-thin text-center">
 								{product?.title}
 							</h1>
@@ -64,6 +65,13 @@ const ProductCards: React.FC<ProductCardsProps> = ({ products }) => {
 										`, ${product?.featuredImage?.url} ${product?.featuredImage?.width}w`
 									)}
 							/>
+							<Button className="px-2" variant="outline">
+								<PlusSquare
+									strokeWidth={1.0}
+									className="w-4 h-4 mr-1"
+								/>
+								Add to Cart
+							</Button>
 						</div>
 					))}
 				</div>
