@@ -18,28 +18,28 @@ const HeroSection: React.FC<HeroSectionProps> = ({}) => {
 				</div>
 				<div className="grid grid-flow-col grid-cols-3 gap-4 items-center">
 					<img
-						src="boards.jpg"
+						src="/boards.jpg"
 						alt="Couple of boards."
 						width="250"
 						height="250"
 						className="col-span-2 col-start-1"
 					/>
 					<img
-						src="boards.jpg"
+						src="/boards.jpg"
 						alt="Couple of boards."
 						width="250"
 						height="250"
 						className="col-start-3"
 					/>
 					<img
-						src="boards.jpg"
+						src="/boards.jpg"
 						alt="Couple of boards."
 						width="250"
 						height="250"
 						className="col-start-1"
 					/>
 					<img
-						src="boards.jpg"
+						src="/boards.jpg"
 						alt="Couple of boards."
 						width="250"
 						height="250"

@@ -43,3 +43,36 @@ export const ProductResult = z
 		featuredImage: ImageResult.nullable(),
 	})
 	.nullable();
+
+export const CartItemResult = z.object({
+	id: z.string(),
+	cost: z.object({
+		amountPerQuantity: MoneyV2Result,
+		subtotalAmount: MoneyV2Result,
+		totalAmount: MoneyV2Result,
+	}),
+	merchandise: z.object({
+		id: z.string(),
+		title: z.string(),
+		product: z.object({
+			title: z.string(),
+			handle: z.string(),
+		}),
+		image: ImageResult.nullable(),
+	}),
+	quantity: z.number().positive().int(),
+});
+
+export const CartResult = z
+	.object({
+		id: z.string(),
+		cost: z.object({
+			subtotalAmount: MoneyV2Result,
+		}),
+		checkoutUrl: z.string(),
+		totalQuantity: z.number().int(),
+		lines: z.object({
+			nodes: z.array(CartItemResult),
+		}),
+	})
+	.nullable();

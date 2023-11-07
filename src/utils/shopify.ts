@@ -2,8 +2,8 @@ import { createStorefrontClient } from "@shopify/hydrogen-react";
 
 import { config } from "./config";
 
-import { ProductQuery, ProductByHandleQuery } from "./graphql";
-import { ProductResult } from "./schemas";
+import { ProductQuery, ProductByHandleQuery, GetCartQuery } from "./graphql";
+import { CartResult, ProductResult } from "./schemas";
 import { z } from "zod";
 
 export const client = createStorefrontClient({
@@ -12,18 +12,16 @@ export const client = createStorefrontClient({
 	privateStorefrontToken: config.privateShopifyAccessToken,
 });
 
-export const getProducts = async (options: {
-	limit?: number;
-	buyerIp: string;
-}) => {
-	const { limit = 10, buyerIp } = options;
-
+const makeShopifyRequest = async (
+	query: string,
+	variables: Record<string, unknown> = {},
+	buyerIp: string = ""
+) => {
 	const response = await fetch(client.getStorefrontApiUrl(), {
 		body: JSON.stringify({
-			query: ProductQuery,
-			variables: { first: limit },
+			query,
+			variables,
 		}),
-		// Generate the headers using the private token. Additionally, you can pass in the buyer's IP address from the request object to help prevent bad actors from overloading your store.
 		headers: client.getPrivateTokenHeaders({ buyerIp }),
 		method: "POST",
 	});
@@ -32,11 +30,38 @@ export const getProducts = async (options: {
 		throw new Error(response.statusText);
 	}
 
-	const { data } = await response.json();
+	const json = await response.json();
+	if (json.errors) {
+		throw new Error(json.errors.map((e: Error) => e.message).join("\n"));
+	}
+
+	return json.data;
+};
+
+export const getProducts = async (options: {
+	limit?: number;
+	buyerIp: string;
+}) => {
+	const { limit = 10, buyerIp } = options;
+
+	const data = await makeShopifyRequest(
+		ProductQuery,
+		{ first: limit },
+		buyerIp
+	);
 
 	const productsList = data.products.edges.map((edge: any) => edge.node);
 	const ProductsResult = z.array(ProductResult);
 	const parsedProducts = ProductsResult.parse(productsList);
 
 	return parsedProducts;
+};
+
+export const getCart = async (id: string) => {
+	const data = await makeShopifyRequest(GetCartQuery, { id });
+
+	const { cart } = data;
+	const parsedCart = CartResult.parse(cart);
+
+	return parsedCart;
 };
