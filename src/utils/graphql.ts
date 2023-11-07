@@ -19,6 +19,7 @@ fragment productFragment on Product {
       quantityAvailable
       price {
         amount
+        currencyCode
       }
     }
   }

@@ -13,7 +13,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({}) => {
 						Get Ready For Season
 					</h1>
 					<p className="text-3xl">
-						A new set of exclusive selections out now!
+						A new set of exclusive boards out now!
 					</p>
 				</div>
 				<div className="grid grid-flow-col grid-cols-3 gap-4 items-center">

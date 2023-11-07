@@ -3,6 +3,8 @@ import { createStorefrontClient } from "@shopify/hydrogen-react";
 import { config } from "./config";
 
 import { ProductQuery, ProductByHandleQuery } from "./graphql";
+import { ProductResult } from "./schemas";
+import { z } from "zod";
 
 export const client = createStorefrontClient({
 	// load environment variables according to your framework and runtime
@@ -26,9 +28,16 @@ export const getProducts = async (options: {
 		headers: client.getPrivateTokenHeaders({ buyerIp }),
 		method: "POST",
 	});
+
 	if (!response.ok) {
 		throw new Error(response.statusText);
 	}
-	const json = await response.json();
-	return json;
+
+	const { data } = await response.json();
+
+	const productsList = data.products.edges.map((edge: any) => edge.node);
+	const ProductsResult = z.array(ProductResult);
+	const parsedProducts = ProductsResult.parse(productsList);
+
+	return parsedProducts;
 };

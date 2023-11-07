@@ -4,21 +4,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { Button } from "@/components/ui/button";
 
 import HeroSection from "@/components/HeroSection";
+import ProductCards from "@/components/ProductCards";
 
 import { getProducts } from "../utils/shopify";
 
 const headers = Astro.request.headers;
 const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
 
-// const products = await getProducts({buyerIp: ip, limit: 17});
+const products = await getProducts({buyerIp: ip, limit: 17});
 
-// if (!products) {
-// 	console.warn("No products found.")
-// }
-
-// console.log(products.data.products.edges)
+if (!products) {
+	console.warn("No products found.")
+}
 ---
 
 <BaseLayout title="Shopify Store">
 	<HeroSection />
+	<ProductCards products={products}/>
 </BaseLayout>
