@@ -43,7 +43,6 @@ export async function initCart() {
 					lines: data.lines,
 				});
 			} else {
-				// If the cart doesn't exist in Shopify, reset the cart store
 				cart.set(emptyCart);
 			}
 		}
