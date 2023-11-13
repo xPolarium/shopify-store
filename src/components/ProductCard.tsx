@@ -18,11 +18,11 @@ function imageFilter(
 	return image && `${image.url}&width=${width}&height=${height}`;
 }
 
-interface ProductProps {
+interface ProductCardProps {
 	product: z.infer<typeof ProductResult>;
 }
 
-const Product: React.FC<ProductProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 	return (
 		<div
 			key={product?.id}
@@ -57,3 +57,5 @@ const Product: React.FC<ProductProps> = ({ product }) => {
 		</div>
 	);
 };
+
+export default ProductCard;
