@@ -12,10 +12,6 @@ const headers = Astro.request.headers;
 const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
 
 const products = await getProducts({buyerIp: ip, limit: 17});
-
-if (!products) {
-	console.warn("No products found.")
-}
 ---
 
 <BaseLayout title="Shopify Store">

@@ -44,13 +44,17 @@ export const getProducts = async (options: {
 }) => {
 	const { limit = 10, buyerIp } = options;
 
-	const data = await makeShopifyRequest(
+	const { products } = await makeShopifyRequest(
 		ProductQuery,
 		{ first: limit },
 		buyerIp
 	);
 
-	const productsList = data.products.edges.map((edge: any) => edge.node);
+	if (!products) {
+		throw new Error("No products.");
+	}
+
+	const productsList = products.edges.map((edge: any) => edge.node);
 	const ProductsResult = z.array(ProductResult);
 	const parsedProducts = ProductsResult.parse(productsList);
 
