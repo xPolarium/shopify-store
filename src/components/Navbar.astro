@@ -1,8 +1,9 @@
 ---
 import CartButton from "./CartButton";
 import MaxWidthWrapper from "./MaxWidthWrapper";
+
+import CountryButton from "./CountryButton"
 import { Button } from "./ui/button";
-import { ShoppingCart, DollarSign } from "lucide-react";
 ---
 
 <nav class="sticky h-14 inset-x-0 top-0 z-30 w-full bg-white border-b">
@@ -22,10 +23,7 @@ import { ShoppingCart, DollarSign } from "lucide-react";
 			<div class="items-center space-x-4 flex">
 				<Button variant="link">Sign in</Button>
 				<Button variant="link">Create account</Button>
-				<Button className="px-2" variant="outline">
-					<DollarSign className="w-4 h-4"></DollarSign>
-					US
-				</Button>
+				<CountryButton />
 				<CartButton client:load/>
 			</div>
 		</div>

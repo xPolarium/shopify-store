@@ -3,6 +3,8 @@ import { ProductResult, type ImageResult } from "@/utils/schemas";
 
 import { Button } from "./ui/button";
 import { PlusSquare } from "lucide-react";
+import { useMoney } from "@shopify/hydrogen-react";
+import type { MoneyV2 } from "@shopify/hydrogen-react/storefront-api-types";
 
 const srcSetValues = [
 	50, 100, 200, 450, 600, 750, 900, 1000, 1250, 1500, 1750, 2000, 2500,
@@ -23,6 +25,8 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+	const money = useMoney(product?.variants?.nodes[0]?.price as MoneyV2);
+
 	return (
 		<div
 			key={product?.id}
@@ -50,6 +54,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 						`, ${product?.featuredImage?.url} ${product?.featuredImage?.width}w`
 					)}
 			/>
+
+			<p>{money.withoutTrailingZeros}</p>
+
 			<Button className="px-2" variant="outline">
 				<PlusSquare strokeWidth={1.0} className="w-4 h-4 mr-1" />
 				Add to Cart

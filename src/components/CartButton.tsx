@@ -13,7 +13,7 @@ const CartButton: React.FC<CartButtonProps> = () => {
 	}, []);
 
 	return (
-		<Button variant="outline" size="icon">
+		<Button className="ml-4" variant="outline" size="icon">
 			<ShoppingCart strokeWidth={1}></ShoppingCart>
 		</Button>
 	);

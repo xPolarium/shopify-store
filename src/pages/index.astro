@@ -6,7 +6,9 @@ import { Button } from "@/components/ui/button";
 import HeroSection from "@/components/HeroSection";
 import ProductList from "@/components/ProductList";
 
+import { config } from "../utils/config";
 import { getProducts } from "../utils/shopify";
+import { ShopifyProvider } from '@shopify/hydrogen-react';
 
 const headers = Astro.request.headers;
 const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
@@ -14,7 +16,15 @@ const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
 const products = await getProducts({buyerIp: ip, limit: 17});
 ---
 
-<BaseLayout title="Shopify Store">
-	<HeroSection />
-	<ProductList products={products}/>
-</BaseLayout>
+<ShopifyProvider
+	storeDomain={config.shopifyShop}
+	storefrontToken={config.publicShopifyAccessToken}
+	storefrontApiVersion="2023-07"
+	countryIsoCode="US"
+	languageIsoCode="EN"
+>
+	<BaseLayout title="Shopify Store">
+			<HeroSection />
+			<ProductList products={products}/>
+	</BaseLayout>
+</ShopifyProvider>
