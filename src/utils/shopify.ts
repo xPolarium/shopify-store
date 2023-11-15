@@ -61,6 +61,27 @@ export const getProducts = async (options: {
 	return parsedProducts;
 };
 
+export const getProductByHandle = async (options: {
+	handle?: string;
+	buyerIp: string;
+}) => {
+	const { handle = "", buyerIp } = options;
+
+	const { product } = await makeShopifyRequest(
+		ProductByHandleQuery,
+		{ handle: handle },
+		buyerIp
+	);
+
+	if (!product) {
+		throw new Error("No products.");
+	}
+
+	const parsedProduct = ProductResult.parse(product);
+
+	return parsedProduct;
+};
+
 export const getCart = async (id: string) => {
 	const data = await makeShopifyRequest(GetCartQuery, { id });
 
