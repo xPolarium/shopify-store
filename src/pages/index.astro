@@ -7,13 +7,16 @@ import HeroSection from "@/components/HeroSection";
 import ProductList from "@/components/ProductList";
 
 import { config } from "../utils/config";
-import { getProducts } from "../utils/shopify";
+import { getProductByHandle, getProducts } from "../utils/shopify";
 import { ShopifyProvider } from '@shopify/hydrogen-react';
+import ProductCard from '@/components/ProductCard';
 
 const headers = Astro.request.headers;
 const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
 
 const products = await getProducts({buyerIp: ip, limit: 17});
+
+const product = await getProductByHandle({buyerIp: ip, handle: "the-minimal-snowboard"})
 ---
 
 <ShopifyProvider
@@ -27,4 +30,6 @@ const products = await getProducts({buyerIp: ip, limit: 17});
 			<HeroSection />
 			<ProductList products={products}/>
 	</BaseLayout>
+
+	<ProductCard product={product}/>
 </ShopifyProvider>

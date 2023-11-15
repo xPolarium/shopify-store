@@ -96,7 +96,7 @@ ${PRODUCT_FRAGMENT}
 
 export const ProductByHandleQuery = `
 query ProductByHandle($handle: String!) {
-	productByHandle(handle: $handle) {
+	product(handle: $handle) {
 	  ...productFragment
 	}
 }
